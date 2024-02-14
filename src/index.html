@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>OneEncryptor</title>
+    <link rel="stylesheet" href="styles.css" />
+    <script src="main.js"></script>
+  </head>
+  <body>
+    <main>
+      <section>
+        <textarea id="user-input" placeholder="Ingresa el texto"></textarea>
+        <div class="button-container">
+          <button id="encrypt-button" class="btn bg-primary hv-primary">
+            Encriptar
+          </button>
+          <button id="decrypt-button" class="btn bg-secondary hv-secondary">
+            Desencriptar
+          </button>
+        </div>
+        <div class="result-container">
+          <textarea
+            id="user-result"
+            placeholder="Resultado"
+            readonly
+          ></textarea>
+          <button id="copy-button" class="btn">Copiar</button>
+        </div>
+      </section>
+    </main>
+    <footer>
+      <p>Hecho con ❤️ por EdiedRamos</p>
+    </footer>
+  </body>
+</html>
