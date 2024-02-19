@@ -3,12 +3,16 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>OneEncryptor</title>
+    <title>One Encryptor</title>
+    <link rel="icon" href="assets/favicon.ico" />
     <link rel="stylesheet" href="styles.css" />
     <script src="main.js"></script>
   </head>
   <body>
-    <main>
+    <main class="main-container">
+      <div class="center">
+        <h1 class="title mt-sm">ONE ENCRYPTOR</h1>
+      </div>
       <section>
         <textarea id="user-input" placeholder="Ingresa el texto"></textarea>
         <div class="button-container">
@@ -25,11 +29,13 @@
             placeholder="Resultado"
             readonly
           ></textarea>
-          <button id="copy-button" class="btn">Copiar</button>
+          <button id="copy-button" class="btn bg-success hv-success">
+            Copiar
+          </button>
         </div>
       </section>
     </main>
-    <footer>
+    <footer class="footer-container center mt-sm mb-sm">
       <p>Hecho con ❤️ por EdiedRamos</p>
     </footer>
   </body>

@@ -1,11 +1,20 @@
-function getById(id) {
-  return document.getElementById(id);
+const MESSAGES = {
+  INVALID_TEXT: "Solo letras minúsculas y sin acentos",
+  INVALID_ENCRYPT: "Encriptado inválido",
+};
+
+function timeoutHandler(time) {
+  let timeoutId = null;
+  return (callback) => {
+    clearTimeout(timeoutId);
+    timeoutId = setTimeout(() => {
+      callback();
+    }, time);
+  };
 }
 
-function initialConfig(references) {
-  console.log(references.encryptButton);
-  // references.encryptButton.disabled = true;
-  // references.decryptButton.disabled = true;
+function getById(id) {
+  return document.getElementById(id);
 }
 
 function getContent(node) {
@@ -18,6 +27,7 @@ function getReferences() {
     userResult: getById("user-result"),
     decryptButton: getById("decrypt-button"),
     encryptButton: getById("encrypt-button"),
+    copyButton: getById("copy-button"),
   };
 }
 
@@ -44,7 +54,7 @@ function decryptText(text) {
 }
 
 function validateText(text) {
-  return [...text].every((letter) => /[a-z\s]/.test(letter));
+  return !/[^a-z\d\s]/.test(text);
 }
 
 function encryptHandler(references) {
@@ -55,11 +65,8 @@ function encryptHandler(references) {
   if (isValid) {
     references.userResult.value = encryptText(original);
   } else {
-    references.userResult.value = "Solo letras minusculas y espacios";
+    references.userResult.value = MESSAGES.INVALID_TEXT;
   }
-
-  // references.userInput.value = changed;
-  // references.userResult.value = changed;
 }
 
 function decryptHandler(references) {
@@ -69,28 +76,35 @@ function decryptHandler(references) {
   if (isValid) {
     references.userResult.value = decryptText(original);
   } else {
-    references.userResult.value = "Encriptado invalido";
+    references.userResult.value = MESSAGES.INVALID_ENCRYPT;
   }
 }
 
 function addEvents(references) {
+  const eventsTimeoutHandler = timeoutHandler(1000);
+
   references.encryptButton.addEventListener("click", () =>
     encryptHandler(references)
   );
   references.decryptButton.addEventListener("click", () =>
     decryptHandler(references)
   );
-  // references.userInput.addEventListener("input", () =>
-  //   // encryptHandler(references)
-  //   decryptHandler(references)
-  // );
+  references.copyButton.addEventListener("click", () => {
+    navigator.clipboard
+      .writeText(getContent(references.userResult))
+      .then(() => {
+        references.userResult.classList.add("success-state");
+        eventsTimeoutHandler(() =>
+          references.userResult.classList.remove("success-state")
+        );
+      });
+  });
 }
 
 // main function
 function run() {
   const references = getReferences();
   addEvents(references);
-  initialConfig(references);
 }
 
 document.addEventListener("DOMContentLoaded", run);
